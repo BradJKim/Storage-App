@@ -5,7 +5,7 @@
 # optional renaming command
 
 # list of storage lists
-containers = {}
+containers = {"list":[1,2,3]}
 
 option = ''
 
@@ -13,7 +13,8 @@ print("\nSimple Python Storage App\n")
 
 while(1):
     print("\nCurrent Containers:")
-    print(containers)
+    for name in containers:
+        print(name)
 
     print("\nOptions:")
     print("\tCreate Storage Container - c")
@@ -58,7 +59,7 @@ while(1):
             containers[name] = tuple(tuple_values_array)
         elif(type == "Set"):
             print("Creating Set")
-            containers[name] = ()
+            containers[name] = set()
         elif(type == "Dictionary"):
             print("Creating Dictionary")
             containers[name] = {}
@@ -87,7 +88,25 @@ while(1):
             print(container_name + f' not found, try again')
 
     elif(option == 'r'):
-        pass
+        container_name = input("Select a container: ")
+
+        # TODO: figure out how to show for sets (and tuples maybe), might need to change adding set container
+
+        print(type(containers[container_name]))
+        if(type(containers[container_name]) == 'set'):
+            print(containers[container_name])
+        else:
+            try:
+                container = containers[container_name]
+                index = int(input("Enter desired value index: "))
+                value = container[index]
+                print("Value: " + str(value))
+            except IndexError:
+                print("Out of bounds error, try again")
+            except KeyError:
+                print(container_name + f' not found, try again')
+            except ValueError:
+                print("Non digit response detected, try again")
     
     elif(option == 'i'):
         pass
