@@ -40,13 +40,13 @@ while(1):
 
         if(type == "List"):
             print("Creating List")
-            containers[name].append([])
+            containers[name] = []
         elif(type == "Stack"):
             print("Creating Stack")
-            containers[name].append([])
+            containers[name] = []
         elif(type == "Queue"):
             print("Creating Queue")
-            containers[name].append([])
+            containers[name] = []
         elif(type == "Tuple"):
             print("Creating Tuple")
             tuple_values_array = [] # Tuple values need to be inputed when created
@@ -55,13 +55,13 @@ while(1):
             while(user_input_value != ''):
                 tuple_values_array.append(user_input_value)
                 user_input_value = input()
-            containers[name].append(tuple(tuple_values_array))
+            containers[name] = tuple(tuple_values_array)
         elif(type == "Set"):
             print("Creating Set")
-            containers[name].append(())
+            containers[name] = ()
         elif(type == "Dictionary"):
             print("Creating Dictionary")
-            containers[name].append({})
+            containers[name] = {}
         else:
             print("Invalid Response, try again")
 
@@ -71,15 +71,32 @@ while(1):
             print("No containers created, please create a container")
             continue
     
-    elif():
+    elif(option == 'D'):
+        container_name = input("Enter name of container to be removed: ")
+        try:
+            containers[container_name]
+            confirm = input("Are you sure you want to delete this container? (y/n) ")
+            if(confirm == 'y'):
+                del containers[container_name]
+                print(container_name + f' has been removed from containers')
+            elif(confirm == 'n'):
+                print("Delete request cancelled")
+            else:
+                print("Invalid response, cancelling delete request")
+        except:
+            print(container_name + f' not found, try again')
+
+    elif(option == 'r'):
         pass
     
-    elif():
+    elif(option == 'i'):
         pass
     
-    elif():
+    elif(option == 'a'):
         pass
-    
+
+    elif(option == 'd'):
+        pass
+
     else:
         print("Invalid response, try again")
-        continue
