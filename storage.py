@@ -37,9 +37,16 @@ while(1):
         container_type = input("Enter container type: ")
         name = input("Name of container: ")
 
-        # TODO: check for name duplicates
+        # checks for name duplicates
+        duplicate = False
+        for container_name in containers:
+            if(container_name == name):
+                duplicate = True 
+                break;
 
-        if(container_type == "List"):
+        if(duplicate):
+            print("Duplicate name found, use a different name for container")
+        elif(container_type == "List"):
             print("Creating List")
             containers[name] = []
         elif(container_type == "Stack"):
