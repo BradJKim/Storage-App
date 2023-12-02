@@ -5,7 +5,7 @@
 # optional renaming command
 
 # list of storage lists
-containers = {"list":[1,2,3]}
+containers = {"list":[1,2,3], "dict":{"apple":"orange"}}
 
 option = ''
 
@@ -90,21 +90,31 @@ while(1):
     elif(option == 'r'):
         container_name = input("Select a container: ")
 
-        if(type(containers[container_name]) == type(set()) or type(containers[container_name]) == type(tuple())):
-            print("Values: " + str(containers[container_name]))
-        else:
-            try:
-                container = containers[container_name]
-                index = int(input("Enter desired value index: "))
-                value = container[index]
-                print("Value: " + str(value))
-            except IndexError:
-                print("Out of bounds error, try again")
-            except KeyError:
-                print(container_name + f' not found, try again')
-            except ValueError:
-                print("Non digit response detected, try again")
-    
+        # Prints all values for set and tuples, key value for dict, and index values for others 
+        try:
+            if(type(containers[container_name]) == type(set()) or type(containers[container_name]) == type(tuple())):
+                print("Values: " + str(containers[container_name]))
+            elif(type(containers[container_name]) == type({})): 
+                try:
+                    key = input("Enter key: ")
+                    print("Value: " + str(containers[container_name][key]))
+                except KeyError:
+                    print("Key not found, try again")
+            else:
+                try:
+                    container = containers[container_name]
+                    index = int(input("Enter desired value index: "))
+                    value = container[index]
+                    print("Value: " + str(value))
+                except IndexError:
+                    print("Out of bounds error, try again")
+                except KeyError:
+                    print(container_name + f' not found, try again')
+                except ValueError:
+                    print("Non digit response detected, try again")
+        except KeyError:
+            print("Container not found, try again")
+
     elif(option == 'i'):
         pass
     
