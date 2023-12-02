@@ -34,21 +34,21 @@ while(1):
     if(option == 'c'):
         print("Container Options: List, Stack, Queue, Tuple, Set, Dictionary")
 
-        type = input("Enter container type: ")
+        container_type = input("Enter container type: ")
         name = input("Name of container: ")
 
-        # TODO: check for name types duplicates
+        # TODO: check for name duplicates
 
-        if(type == "List"):
+        if(container_type == "List"):
             print("Creating List")
             containers[name] = []
-        elif(type == "Stack"):
+        elif(container_type == "Stack"):
             print("Creating Stack")
             containers[name] = []
-        elif(type == "Queue"):
+        elif(container_type == "Queue"):
             print("Creating Queue")
             containers[name] = []
-        elif(type == "Tuple"):
+        elif(container_type == "Tuple"):
             print("Creating Tuple")
             tuple_values_array = [] # Tuple values need to be inputed when created
             print("Enter tuple values: ")
@@ -57,10 +57,10 @@ while(1):
                 tuple_values_array.append(user_input_value)
                 user_input_value = input()
             containers[name] = tuple(tuple_values_array)
-        elif(type == "Set"):
+        elif(container_type == "Set"):
             print("Creating Set")
-            containers[name] = set()
-        elif(type == "Dictionary"):
+            containers[name] = set((1,2))
+        elif(container_type == "Dictionary"):
             print("Creating Dictionary")
             containers[name] = {}
         else:
@@ -90,11 +90,8 @@ while(1):
     elif(option == 'r'):
         container_name = input("Select a container: ")
 
-        # TODO: figure out how to show for sets (and tuples maybe), might need to change adding set container
-
-        print(type(containers[container_name]))
-        if(type(containers[container_name]) == 'set'):
-            print(containers[container_name])
+        if(type(containers[container_name]) == type(set()) or type(containers[container_name]) == type(tuple())):
+            print("Values: " + str(containers[container_name]))
         else:
             try:
                 container = containers[container_name]
