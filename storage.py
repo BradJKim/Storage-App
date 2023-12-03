@@ -2,10 +2,15 @@
 # Includes commands for item retrieval, addition, deletion, and list retrieval, addition, or delection
 # retrieve both item value by index and vice versa
 
-# optional renaming command
+# NOTE: All values are stored as strings in order for index function to work properly. 
+#       If non strings are stored, the method will only look for strings and won't detect numbers
+
+# TODO: optional renaming command
+
+# TODO: Convert options into functions that we can call, seperate function logic from application logic
 
 # list of storage lists
-containers = {"list":["List", [1,2,3]], "dict":["Dictionary", {"apple":"orange"}]}
+containers = {"list":["List", ["1","2","3"]], "dict":["Dictionary", {"apple":"orange", "banana":"peach"}]}
 
 option = ''
 
@@ -99,19 +104,20 @@ while(1):
 
         # Prints all values for set and tuples, key value for dict, and index values for others 
         try:
-            if(containers[container_name][0] == "Set" or containers[container_name][0] == "Tuple"):
-                print("Values: " + str(containers[container_name]))
-            elif(containers[container_name][0] == "Dictionary"): 
+            container = containers[container_name]
+
+            if(container[0] == "Set" or container[0] == "Tuple"):
+                print("Values: " + str(container))
+            elif(container[0] == "Dictionary"): 
                 try:
                     key = input("Enter key: ")
-                    print("Value: " + str(containers[container_name][1][key]))
+                    print("Value: " + str(container[1][key]))
                 except KeyError:
                     print("Key not found, try again")
             else:
                 try:
-                    container = containers[container_name]
                     index = int(input("Enter desired value index: "))
-                    value = container[index][1]
+                    value = container[1][index]
                     print("Value: " + str(value))
                 except IndexError:
                     print("Out of bounds error, try again")
@@ -127,32 +133,31 @@ while(1):
 
         # Prints value key for dict, and value indices for others 
         try:
-            if(type(containers[container_name]) == type(set())):
+            container = containers[container_name]
+
+            if(container[0] == "Set"):
                 print("Index cannot be given")
-            elif(type(containers[container_name]) == type(tuple())):
-                print()
-            elif(type(containers[container_name]) == type({})): 
-                try:
-                    key = input("Enter key: ")
-                    print("Value: " + str(containers[container_name][key]))
-                except KeyError:
-                    print("Key not found, try again")
+            elif(container[0] == "Dictionary"): 
+                value_input = input("Enter value: ")
+
+                found = False
+                for key in container[1]:
+                    if(container[1][key] == value_input):
+                        print("Key: " + str(key))
+                        found = True
+                        break
+                if(not found):
+                    print("No key found, value does not exist in container")
             else:
                 try:
-                    container = containers[container_name]
-                    index = int(input("Enter desired value index: "))
-                    value = container[index]
-                    print("Value: " + str(value))
-                except IndexError:
-                    print("Out of bounds error, try again")
-                except KeyError:
-                    print(container_name + f' not found, try again')
+                    value_input = input("Enter value: ")  
+                    print("Index: " + str(container[1].index(value_input)))
                 except ValueError:
-                    print("Non digit response detected, try again")
+                    print("Index not found, value does not exist in container")
         except KeyError:
             print("Container not found, try again")
     
-    elif(option == 'a'):
+    elif(option == 'a'): # all ints and numbers must be stored as a string for index to be found, ex: 1 vs "1", 
         pass
 
     elif(option == 'd'):
