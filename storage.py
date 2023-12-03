@@ -5,7 +5,7 @@
 # optional renaming command
 
 # list of storage lists
-containers = {"list":[1,2,3], "dict":{"apple":"orange"}}
+containers = {"list":["List", [1,2,3]], "dict":["Dictionary", {"apple":"orange"}]}
 
 option = ''
 
@@ -48,13 +48,13 @@ while(1):
             print("Duplicate name found, use a different name for container")
         elif(container_type == "List"):
             print("Creating List")
-            containers[name] = []
+            containers[name] = ["List", []]
         elif(container_type == "Stack"):
             print("Creating Stack")
-            containers[name] = []
+            containers[name] = ["Stack", []]
         elif(container_type == "Queue"):
             print("Creating Queue")
-            containers[name] = []
+            containers[name] = ["Queue", []]
         elif(container_type == "Tuple"):
             print("Creating Tuple")
             tuple_values_array = [] # Tuple values need to be inputed when created
@@ -63,13 +63,13 @@ while(1):
             while(user_input_value != ''):
                 tuple_values_array.append(user_input_value)
                 user_input_value = input()
-            containers[name] = tuple(tuple_values_array)
+            containers[name] = ["Tuple", tuple(tuple_values_array)]
         elif(container_type == "Set"):
             print("Creating Set")
-            containers[name] = set((1,2))
+            containers[name] = ["Set", set((1,2))]
         elif(container_type == "Dictionary"):
             print("Creating Dictionary")
-            containers[name] = {}
+            containers[name] = ["Dictionary", {}]
         else:
             print("Invalid Response, try again")
 
@@ -99,8 +99,38 @@ while(1):
 
         # Prints all values for set and tuples, key value for dict, and index values for others 
         try:
-            if(type(containers[container_name]) == type(set()) or type(containers[container_name]) == type(tuple())):
+            if(containers[container_name][0] == "Set" or containers[container_name][0] == "Tuple"):
                 print("Values: " + str(containers[container_name]))
+            elif(containers[container_name][0] == "Dictionary"): 
+                try:
+                    key = input("Enter key: ")
+                    print("Value: " + str(containers[container_name][1][key]))
+                except KeyError:
+                    print("Key not found, try again")
+            else:
+                try:
+                    container = containers[container_name]
+                    index = int(input("Enter desired value index: "))
+                    value = container[index][1]
+                    print("Value: " + str(value))
+                except IndexError:
+                    print("Out of bounds error, try again")
+                except KeyError:
+                    print(container_name + f' not found, try again')
+                except ValueError:
+                    print("Non digit response detected, try again")
+        except KeyError:
+            print("Container not found, try again")
+
+    elif(option == 'i'):
+        container_name = input("Select a container: ")
+
+        # Prints value key for dict, and value indices for others 
+        try:
+            if(type(containers[container_name]) == type(set())):
+                print("Index cannot be given")
+            elif(type(containers[container_name]) == type(tuple())):
+                print()
             elif(type(containers[container_name]) == type({})): 
                 try:
                     key = input("Enter key: ")
@@ -121,9 +151,6 @@ while(1):
                     print("Non digit response detected, try again")
         except KeyError:
             print("Container not found, try again")
-
-    elif(option == 'i'):
-        pass
     
     elif(option == 'a'):
         pass
