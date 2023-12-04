@@ -71,7 +71,7 @@ while(1):
             containers[name] = ["Tuple", tuple(tuple_values_array)]
         elif(container_type == "Set"):
             print("Creating Set")
-            containers[name] = ["Set", set((1,2))]
+            containers[name] = ["Set", set(())]
         elif(container_type == "Dictionary"):
             print("Creating Dictionary")
             containers[name] = ["Dictionary", {}]
@@ -98,6 +98,8 @@ while(1):
                 print("Invalid response, cancelling delete request")
         except:
             print(container_name + f' not found, try again')
+
+    # TODO: add condition for no values added yet 
 
     elif(option == 'r'):
         container_name = input("Select a container: ")
@@ -158,10 +160,80 @@ while(1):
             print("Container not found, try again")
     
     elif(option == 'a'): # all ints and numbers must be stored as a string for index to be found, ex: 1 vs "1", 
-        pass
+        container_name = input("Select a container: ")
+
+        try:
+            container = containers[container_name]
+            
+            if(container[0] == "Tuple"):
+                print("Cannot add more values to Tuple, try a different container")
+            
+            elif(container[0] == "Dictionary"):
+                key_name = input("Enter key: ")
+                key_value = input("Enter value: ")
+                container[1][key_name] = key_value
+                print("Key-value pair added to Dictionary")
+            
+            elif(container[0] == "Queue"):
+                value = input("Enter value: ")
+                container[1].put(value)
+                print("Value added to Queue")
+            
+            elif(container[0] == "Stack"):
+                value = input("Enter value: ")
+                container[1].append(value)
+                print("Value added to Stack")
+            
+            elif(container[0] == "List"):
+                value = input("Enter value: ")
+                container[1].append(value)
+                print("Value added to List")
+            
+            elif(container[0] == "Set"):
+                value = input("Enter value: ")
+                container[1].add(value)
+                print("Value added to Set")
+        except KeyError:
+            print("Container not found, try again") 
 
     elif(option == 'd'):
-        pass
+        container_name = input("Select a container: ")
+
+        try:
+            container = containers[container_name]
+            
+            if(container[0] == "Tuple"):
+                print("Cannot delete values from Tuple, try a different container")
+            
+            elif(container[0] == "Dictionary"):
+                key_name = input("Enter key: ")
+                container[1].pop(key_name)
+                print("Key-value pair removed from Dictionary")
+            
+            elif(container[0] == "Queue"):
+                value = input("Enter value: ")
+                container[1].remove(value)
+                print("Value removed from Queue")
+            
+            elif(container[0] == "Stack"):
+                value = input("Enter value: ")
+                container[1].remove(value)
+                print("Value removed from Stack")
+            
+            elif(container[0] == "List"):
+                value = input("Enter value: ")
+                container[1].remove(value)
+                print("Value removed from List")
+            
+            elif(container[0] == "Set"):
+                value = input("Enter value: ")
+                container[1].remove(value)
+                print("Value removed from Set")
+        except KeyError:
+            print("Container not found, try again") 
 
     else:
         print("Invalid response, try again")
+    
+    # TODO: Add options for pop / push for queue and stack
+        
