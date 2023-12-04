@@ -1,11 +1,11 @@
 # Create and store python data strcutures with user interface
-# Includes commands for item retrieval, addition, deletion, and list retrieval, addition, or delection
-# retrieve both item value by index and vice versa
+# Includes commands for item retrieval, addition, deletion, and list retrieval, addition, or delection, and
+# retrieve both item value by index and vice versa.
 
 # NOTE: All values are stored as strings in order for index function to work properly. 
-#       If non strings are stored, the method will only look for strings and won't detect numbers
-
-# TODO: optional renaming command
+#       If non strings are somehow stored, the method will only look for strings and won't detect numbers.
+#       User would have to specific whether they are looking for a string or int in order to be specify.
+#       This will most likely not be an issue for the container class as type can be more easily specified.
 
 # TODO: Convert options into functions that we can call, seperate function logic from application logic
 
@@ -24,6 +24,8 @@ while(1):
     print("\nOptions:")
     print("\tCreate Storage Container - c")
     print("\tDelete Storage Container - D")
+    print("\tRename Storage Container - t")
+    print()
     print("\tRetrieve a value from a Container - r")
     print("\tRetrieve an index from a Container - i")
     print("\tAdd a value to a Container - a")
@@ -108,25 +110,26 @@ while(1):
         try:
             container = containers[container_name]
 
-            if(container[0] == "Set" or container[0] == "Tuple"):
-                print("Values: " + str(container))
-            elif(container[0] == "Dictionary"): 
-                try:
-                    key = input("Enter key: ")
-                    print("Value: " + str(container[1][key]))
-                except KeyError:
-                    print("Key not found, try again")
+            if(len(container[1]) == 0):
+                print("Container is empty")
             else:
-                try:
-                    index = int(input("Enter desired value index: "))
-                    value = container[1][index]
-                    print("Value: " + str(value))
-                except IndexError:
-                    print("Out of bounds error, try again")
-                except KeyError:
-                    print(container_name + f' not found, try again')
-                except ValueError:
-                    print("Non digit response detected, try again")
+                if(container[0] == "Set" or container[0] == "Tuple"):
+                    print("Values: " + str(container))
+                elif(container[0] == "Dictionary"): 
+                    try:
+                        key = input("Enter key: ")
+                        print("Value: " + str(container[1][key]))
+                    except KeyError:
+                        print("Key not found, try again")
+                else:
+                    try:
+                        index = int(input("Enter desired value index: "))
+                        value = container[1][index]
+                        print("Value: " + str(value))
+                    except IndexError:
+                        print("Out of bounds error, try again")
+                    except KeyError:
+                        print(container_name + f' not found, try again')
         except KeyError:
             print("Container not found, try again")
 
@@ -137,25 +140,28 @@ while(1):
         try:
             container = containers[container_name]
 
-            if(container[0] == "Set"):
-                print("Index cannot be given")
-            elif(container[0] == "Dictionary"): 
-                value_input = input("Enter value: ")
-
-                found = False
-                for key in container[1]:
-                    if(container[1][key] == value_input):
-                        print("Key: " + str(key))
-                        found = True
-                        break
-                if(not found):
-                    print("No key found, value does not exist in container")
+            if(len(container[1]) == 0):
+                print("Container is empty")
             else:
-                try:
-                    value_input = input("Enter value: ")  
-                    print("Index: " + str(container[1].index(value_input)))
-                except ValueError:
-                    print("Index not found, value does not exist in container")
+                if(container[0] == "Set"):
+                    print("Index cannot be given")
+                elif(container[0] == "Dictionary"): 
+                    value_input = input("Enter value: ")
+
+                    found = False
+                    for key in container[1]:
+                        if(container[1][key] == value_input):
+                            print("Key: " + str(key))
+                            found = True
+                            break
+                    if(not found):
+                        print("No key found, value does not exist in container")
+                else:
+                    try:
+                        value_input = input("Enter value: ")  
+                        print("Index: " + str(container[1].index(value_input)))
+                    except ValueError:
+                        print("Index not found, value does not exist in container")
         except KeyError:
             print("Container not found, try again")
     
