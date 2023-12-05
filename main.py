@@ -1,5 +1,11 @@
 from container import Container
 
-myContainer = Container()
+myContainers = Container()
 
-myContainer.create_container("apple","List")
+myContainers.create_container("apple","List")
+
+print(myContainers.containers)
+
+myContainers.delete_container("apple")
+
+print(myContainers.containers)

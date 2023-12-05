@@ -3,8 +3,7 @@
 
 # Does not implement Tuples, creating tuples requires values to be inputed
 
-from exceptions import DuplicateNameError
-from exceptions import ContainerTypeError
+from exceptions import DuplicateNameError, ContainerNotFoundError, ContainerTypeError
 
 class Container:
 
@@ -35,8 +34,11 @@ class Container:
         else:
             raise ContainerTypeError
 
-    def delete_container(self, container_name):
-        pass
+    def delete_container(self, container_name): # does nothing if no containers are made
+        try:
+            if(len(self.containers) != 0): del self.containers[container_name]
+        except:
+            raise ContainerNotFoundError
 
     def get_value(self, container_name, index):
         pass
