@@ -1,6 +1,6 @@
 # Create and store python data strcutures with user interface
-# Includes commands for item retrieval, addition, deletion, and list retrieval, addition, or delection, and
-# retrieve both item value by index and vice versa.
+# Includes commands for container retrieval, addition, or delection, value addition, deletion, 
+# and ability to retrieve both item value by index and indices by values.
 
 # NOTE: All values are stored as strings in order for index function to work properly. 
 #       If non strings are somehow stored, the method will only look for strings and won't detect numbers.
@@ -187,6 +187,9 @@ def delete_value(container_name):
             print("Value removed from Set")
     except KeyError:
         print("Container not found, try again") 
+
+
+# Start of application
 
 option = ''
 
