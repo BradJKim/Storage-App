@@ -1,23 +1,32 @@
-class Container:
+# Create and store python data strcutures with user interface
+# Includes functions for item retrieval, addition, deletion, and list retrieval, addition, or delection
 
-    # variables: 
+class Container:
 
     # class init:
     def __init__(self) -> None:
         self.containers = []
-        self.container_names = []
 
     # class methods:
+    def create_container():
+        pass
+
+    def delete_container():
+        pass
+
+    def get_value():
+        pass
+
+    def get_index():
+        pass
+
+    def add_value():
+        pass
+
+    def delete_value():
+        pass
 
 
-
-    """ containers.append({1,7,3,4})
-        containers.append([1,2,3,8])
-        containers.append((1,4,6,3))
-        containers.append({"one":"1","two":"2"})
-
-        print(containers) """
-    
     """ 
     Python Class Example
 
