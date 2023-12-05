@@ -10,7 +10,7 @@ class Container:
 
     # class init:
     def __init__(self) -> None:
-        self.containers = []
+        self.containers = {}
 
     # class methods:
     def create_container(self, container_name, container_type):
