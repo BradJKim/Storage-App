@@ -3,7 +3,7 @@
 
 # Does not implement Tuples, creating tuples requires values to be inputed
 
-from exceptions import DuplicateNameError, ContainerNotFoundError, ContainerTypeError
+from exceptions import DuplicateNameError, ContainerNotFoundError, ContainerTypeError, IncompatibleContainerType
 
 class Container:
 
@@ -41,19 +41,111 @@ class Container:
             raise ContainerNotFoundError
 
     def get_value(self, container_name, index):
-        pass
+        # Prints all values for set and tuples, key value for dict, and index values for others 
+        try:
+            container = self.containers[container_name]
+
+            if(container[0] == "Set" or container[0] == "Tuple"):
+                return container
+            else:
+                return container[1][index]
+        except:
+            raise ContainerNotFoundError
 
     def get_index(self, container_name, value):
-        pass
+        # Prints value key for dict, and value indices for others 
+        try:
+            container = self.containers[container_name]
 
-    def add_value(self, container_name, value):
-        pass
+            if(container[0] == "Set"):
+                raise IncompatibleContainerType
+            elif(container[0] == "Dictionary"): 
+                for key in container[1]:
+                    if(container[1][key] == value):
+                        return key
+                return None
+            else:
+                    return container[1].index(value)
+        except:
+            raise ContainerNotFoundError
+        
+    def add_value(self, container_name, value, index = None): # index used as key for dictionaries, else used for lists
+        try:
+            container = self.containers[container_name]
+            
+            if(container[0] == "Tuple"):
+                raise IncompatibleContainerType
+                        
+            elif(container[0] == "Dictionary"):
+                key_name = index
+                key_value = value
+                container[1][key_name] = key_value
+            
+            elif(container[0] == "Queue"):
+                container[1].put(value)
+            
+            elif(container[0] == "Stack"):
+                container[1].append(value)
+            
+            elif(container[0] == "List"):
+                if(index != None):
+                    container[1].insert(index, value)
+                else:
+                    container[1].append(value)
+            
+            elif(container[0] == "Set"):
+                container[1].add(value)
 
-    def add_value(self, container_name, value, index):
-        pass
+        except:
+            raise ContainerNotFoundError
 
-    def delete_value(self, container_name, value):
-        pass
+    # returns deleted value
+    def delete_value(self, container_name, value = None, index = None): # prioritizes index for dictionaries, value for list types
+        try:
+            container = self.containers[container_name]
+            
+            if(container[0] == "Tuple"):
+                raise IncompatibleContainerType
+            
+            elif(container[0] == "Dictionary"):
+                if(index != None):
+                    key_name = index
+                    deleted_value = container[1][key_name]
+                    del container[1][key_name]
+                    return deleted_value
+                else:
+                    for key_value in container[1]:
+                        if(container[1][key_value] == value):
+                            deleted_value = container[1][key_name]
+                            del container[1][key_name]
+                            return deleted_value
+                            break
+            
+            elif(container[0] == "Queue"):
+                if(value != None):
+                    return container[1].remove(value)
+                elif(index != None):
+                    deleted_value = container[1][index]
+                    del container[1][index]
+                    return deleted_value
+                else:
+                    return container[1][index].pop()
+            
+            elif(container[0] == "Stack"):
+                container[1].remove(value)
+            
+            elif(container[0] == "List"):
+                value = input("Enter value: ")
+                container[1].remove(value)
+                print("Value removed from List")
+            
+            elif(container[0] == "Set"):
+                value = input("Enter value: ")
+                container[1].remove(value)
+                print("Value removed from Set")
+                
+        except:
+            raise ContainerNotFoundError
 
 
     """ 
