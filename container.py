@@ -1,6 +1,11 @@
 # Create and store python data strcutures with user interface
 # Includes functions for item retrieval, addition, deletion, and list retrieval, addition, or delection
 
+# Does not implement Tuples, creating tuples requires values to be inputed
+
+from exceptions import DuplicateNameError
+from exceptions import ContainerTypeError
+
 class Container:
 
     # class init:
@@ -8,22 +13,44 @@ class Container:
         self.containers = []
 
     # class methods:
-    def create_container():
+    def create_container(self, container_name, container_type):
+        # checks for name duplicates
+        duplicate = False
+        for container in self.containers:
+            if(container == container_name):
+                duplicate = True 
+                break;
+        if(duplicate):
+            raise DuplicateNameError
+        elif(container_type == "List"):
+            self.containers[container_name] = ["List", []]
+        elif(container_type == "Stack"):
+            self.containers[container_name] = ["Stack", []]
+        elif(container_type == "Queue"):
+            self.containers[container_name] = ["Queue", []]
+        elif(container_type == "Set"):
+            self.containers[container_name] = ["Set", set(())]
+        elif(container_type == "Dictionary"):
+            self.containers[container_name] = ["Dictionary", {}]
+        else:
+            raise ContainerTypeError
+
+    def delete_container(self, container_name):
         pass
 
-    def delete_container():
+    def get_value(self, container_name, index):
         pass
 
-    def get_value():
+    def get_index(self, container_name, value):
         pass
 
-    def get_index():
+    def add_value(self, container_name, value):
         pass
 
-    def add_value():
+    def add_value(self, container_name, value, index):
         pass
 
-    def delete_value():
+    def delete_value(self, container_name, value):
         pass
 
 
