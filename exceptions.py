@@ -5,3 +5,7 @@ class DuplicateNameError(Exception):
 class ContainerTypeError(Exception):
     "Exception raised for unknown container type"
     pass
+
+class ContainerNotFoundError(Exception):
+    "Exception raised when specified container does not exist"
+    pass
