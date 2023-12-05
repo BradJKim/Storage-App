@@ -9,3 +9,7 @@ class ContainerTypeError(Exception):
 class ContainerNotFoundError(Exception):
     "Exception raised when specified container does not exist"
     pass
+
+class IncompatibleContainerType(Exception):
+    "Exception raised when container type does not allow certain functions"
+    pass
